@@ -19,6 +19,9 @@ let counter = 0;
 
 let hasWon = false;
 
+
+// Function to determine if a player has a winning combo
+
 const isWinning = (player) => {
     let win = false;
     winningCombos.forEach((combo) => {
@@ -30,19 +33,24 @@ const isWinning = (player) => {
 }
 
 
+// Function to return current player and identifier
+
 const getPlayer = () => {
     if (counter % 2 !== 0) {
         return {
-            player: Xs,
+            playerBoxes: Xs,
             identifier: "X"
         }
     } else {
         return {
-            player: Os,
+            playerBoxes: Os,
             identifier: "O"
         }
     }
 }
+
+
+// Function to display replay button
 
 const displayReplayButton = () => {
     buttonContainer.innerHTML = "<button id='replay'>Play Again!</button>";
@@ -66,17 +74,17 @@ for (let box of allBoxes) {
 
             box.innerHTML = player.identifier;
             box.classList.add(player.identifier);
-            player.player.push(parseInt(box.id));
-            if (isWinning(player.player)) {
+            player.playerBoxes.push(parseInt(box.id));
+
+            // Winning:
+            if (isWinning(player.playerBoxes)) {
                 window.setTimeout(() => window.alert(`${player.identifier}s win!`), 200);
                 hasWon = true;
-            }
-
-            if (hasWon === true) {
                 displayReplayButton();
                 return;
             }
 
+            // It's a tie:
             if ((Xs.length + Os.length) === 9) {
                 window.setTimeout(() => window.alert("It's a tie!"), 200);
                 displayReplayButton();
