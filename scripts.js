@@ -68,12 +68,17 @@ for (let box of allBoxes) {
         "click",
         (event) => {
 
+            if (box.classList.contains("clicked")) {
+                return;
+            }
+
             counter++;
 
             const player = getPlayer();
 
             box.innerHTML = player.identifier;
             box.classList.add(player.identifier);
+            box.classList.add("clicked");
             player.playerBoxes.push(parseInt(box.id));
 
             // Winning:
