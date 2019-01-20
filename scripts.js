@@ -50,11 +50,12 @@ const getPlayer = () => {
 }
 
 
-// Function to display replay button
+// Function to display replay button & reload page when clicked
 
 const displayReplayButton = () => {
-    buttonContainer.innerHTML = "<button id='replay'>Play Again!</button>";
-    document.querySelector("#replay").addEventListener(
+    const replayButton = document.querySelector("#replay");
+    replayButton.style.display = "inline";
+    replayButton.addEventListener(
         "click",
         (event) => {
             window.location.reload();
@@ -62,13 +63,13 @@ const displayReplayButton = () => {
     )
 }
 
-
 for (let box of allBoxes) {
     box.addEventListener(
         "click",
         (event) => {
 
-            if (box.classList.contains("clicked")) {
+            // Disable interacting with clicked boxes or after a win
+            if (box.classList.contains("clicked") || hasWon) {
                 return;
             }
 
@@ -90,7 +91,7 @@ for (let box of allBoxes) {
             }
 
             // It's a tie:
-            if ((Xs.length + Os.length) === 9) {
+            if (counter === 9) {
                 window.setTimeout(() => window.alert("It's a tie!"), 200);
                 displayReplayButton();
                 return;
